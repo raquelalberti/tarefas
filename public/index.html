@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="container-titulo">
+            <input type="text" class="input-busca" id="inputBusca" oninput="buscarTarefas()" placeholder="Buscar tarefas...">
+            <div class="grupo-botoes">
+                <select class="select-filtro" id="selectFiltro" onchange="filtrarTarefas()">
+                    <option value="all">Todas</option>
+                    <option value="pending">Pendentes</option>
+                    <option value="completed">Concluídas</option>
+                </select>
+                <button class="btn-adicionar-tarefa" data-toggle="modal" data-target="#modalAdicionarTarefa">Adicionar</button>
+            </div>
+        </div>
+        <div id="tarefas" class="row row-cols-1 row-cols-md-2"></div>
+    </div>
+
+    <div class="container-toast" id="container-toast"></div>
+
+    <div class="modal fade" id="modalAdicionarTarefa" tabindex="-1" role="dialog" aria-labelledby="modalAdicionarTarefaLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" onclick="fecharModal()" aria-label="Close">&times;</button>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAdicionarTarefaLabel">Adicionar Tarefa</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="formAdicionarTarefa">
+                        <div class="form-group">
+                            <label for="titulo">Título</label>
+                            <input type="text" id="titulo" class="form-control" placeholder="Escreva o título da sua tarefa" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="descricao">Descrição</label>
+                            <textarea id="descricao" class="form-control" placeholder="Escreva a descrição da sua tarefa"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" class="form-control">
+                                <option value="pending">Pendente</option>
+                                <option value="completed">Concluída</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalVisualizarTarefa" tabindex="-1" role="dialog" aria-labelledby="modalVisualizarTarefaLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" onclick="fecharModal()" aria-label="Close">&times;</button>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="visualizarTitulo"></h5>
+                </div>
+                <div class="modal-body">
+                    <p id="visualizarDescricao"></p>
+                    <p><strong>Status:</strong> <span id="visualizarStatus"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-dark" onclick="mostrarModalEditar(tarefaIdAtual)">Editar</button>
+                    <button class="btn btn-danger" onclick="deletarTarefa(tarefaIdAtual)">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEditarTarefa" tabindex="-1" role="dialog" aria-labelledby="modalEditarTarefaLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" onclick="fecharModal()" aria-label="Close">&times;</button>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditarTarefaLabel">Editar Tarefa</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarTarefa">
+                        <div class="form-group">
+                            <label for="editarTitulo">Título</label>
+                            <input type="text" id="editarTitulo" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editarDescricao">Descrição</label>
+                            <textarea id="editarDescricao" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editarStatus">Status</label>
+                            <select id="editarStatus" class="form-control">
+                                <option value="pending">Pendente</option>
+                                <option value="completed">Concluída</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" onclick="mostrarModalVisualizar()">Voltar</button>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
